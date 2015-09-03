@@ -1,7 +1,7 @@
 ---
 layout: post
 title: First Post
-date: {}
+date: null
 summary: "Excited Yahoo!!"
 categories: Explore
 published: true
