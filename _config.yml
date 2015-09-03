@@ -22,10 +22,10 @@ show_social_icons:  false
 disqus_shortname:
 
 # Social icons
-github_username:
+github_username: shekarrex
 bitbucket_username:
 stackoverflow_id:
-twitter_username:
+twitter_username: shekarrex
 google_plus_id:
 linkedin_username:
 angellist_username:
@@ -35,13 +35,13 @@ paypal_url:
 flattr_button:
 
 # Post sharing icons
-show_sharing_icons: false
+show_sharing_icons: true
 share_text: 'Share this post!'
 # Change to 'true' to enable individual icons
 share_facebook: false
-share_twitter: false
-share_googleplus: false
-share_linkedin: false
+share_twitter: true
+share_googleplus: true
+share_linkedin: true
 share_digg: false
 share_tumblr: false
 share_reddit: false
