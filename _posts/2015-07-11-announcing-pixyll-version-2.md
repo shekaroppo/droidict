@@ -1,9 +1,9 @@
 ---
 layout: post
 title: First Post
-date: {}
-summary: "Now, Pixyll is lighter weight and more customizable than before."
-categories: jekyll pixyll
+date: 2015-07-11T00:00:00.000Z
+summary: "Excited Yahoo!!"
+categories: Explore
 published: true
 ---
 
