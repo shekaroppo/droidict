@@ -1,7 +1,7 @@
 ---
 layout: post
 title: Implementing AppbarLayout with ScrollView
-date: 2015-08-03
+date: 2015-09-03
 categories: Explore
 author: Shekar
 published: true
@@ -11,7 +11,7 @@ As there were some bugs in Coordinator layout, I got the requirement to implemen
 
 Expected Output
 
-                                  ![](/images/1.gif)
+![](/images/1.gif)
 
 Step 1: Not reinventing the wheel
 
