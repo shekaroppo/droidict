@@ -9,6 +9,25 @@ date_format: "%b %-d, %Y"
 twitter_username: shekarrex
 
 
+#Default settings
+defaults:
+  -
+    scope:
+      path: "" # an empty string here means all files in the project
+      type: "posts" # previously `post` in Jekyll 2.2.
+    values:
+      author: Shekar
+      layout: "post"
+      category:  Android
+
+  -
+    scope:
+      path: "" # an empty string here means all files in the project
+      type: "pages" # previously `post` in Jekyll 2.2.
+    values:
+      layout: "page"
+
+
 # Google services
 google_analytics:
 google_verification:
@@ -58,3 +77,5 @@ permalink:    /:title
 paginate:     4
 sass:
   compressed: true
+
+port: 3000
