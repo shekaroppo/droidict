@@ -1,9 +1,6 @@
 ---
-layout: post
 title: Implementing AppbarLayout with ScrollView
 date: 2015-09-03
-categories: Explore
-author: Shekar
 published: true
 ---
 
