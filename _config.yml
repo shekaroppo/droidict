@@ -9,6 +9,19 @@ date_format: "%b %-d, %Y"
 twitter_username: shekarrex
 
 
+# Build settings
+markdown:     kramdown
+redcarpet:
+  extensions: ['smart', 'tables', 'with_toc_data']
+permalink:    /:title
+paginate:     4
+sass:
+  compressed: true
+
+port: 3000
+
+
+
 #Default settings
 defaults:
   -
@@ -68,14 +81,3 @@ share_tumblr: false
 share_reddit: false
 share_stumbleupon: false
 share_hackernews: false
-
-# Build settings
-markdown:     kramdown
-redcarpet:
-  extensions: ['smart', 'tables', 'with_toc_data']
-permalink:    /:title
-paginate:     4
-sass:
-  compressed: true
-
-port: 3000
