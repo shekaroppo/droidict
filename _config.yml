@@ -20,7 +20,7 @@ paginate:     3
 sass:
   compressed: true
 
-port: 5000
+port: 4000
 
 
 
@@ -52,7 +52,7 @@ google_verification:
 animated:           false
 show_related_posts: false
 show_post_footers:  false
-show_social_icons:  false
+show_social_icons:  true
 
 # Disqus post comments
 # (leave blank to disable Disqus)

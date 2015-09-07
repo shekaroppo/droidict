@@ -22,14 +22,13 @@
 
 .post-footer {
   @extend .italic;
-
-  margin-top: .75rem;
+  //margin-top: .75rem;
   text-align: center;
 }
 
 .post-footer .avatar {
-  margin: 2rem 0;
-  width: 100px;
+  // margin: 1rem 0;
+  width: 150px;
   border-radius: 50%;
 }
 
