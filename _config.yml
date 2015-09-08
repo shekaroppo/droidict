@@ -46,7 +46,7 @@ defaults:
 
 # Google services
 google_analytics: true
-google_verification:
+google_verification: true
 
 # Optional features
 animated:           false
