@@ -20,7 +20,7 @@ paginate:     3
 sass:
   compressed: true
 
-port: 4000
+port: 5000
 
 
 
@@ -45,7 +45,7 @@ defaults:
 
 
 # Google services
-google_analytics:
+google_analytics: true
 google_verification:
 
 # Optional features
