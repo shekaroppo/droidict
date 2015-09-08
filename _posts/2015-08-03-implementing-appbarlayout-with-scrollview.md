@@ -6,34 +6,57 @@ published: true
 
 As there were some bugs in Coordinator layout, I got the requirement to implement same behavior with scroll view. So here is how we can do it.
 
-Expected Output
+### Expected Output
 
-![](/images/1.gif)
+![](/images/1.gif){: .center-image }
 
 Step 1: Not reinventing the wheel
 
+
 This library is very good as starting point for our final goal, and here you will find detail explanation about how to create this.
 
-![](/images/2.gif)
+![](/images/2.gif){: .center-image }
 
 Let's see the basic structure of the this implementation.
 
 {% highlight xml %}
 <FrameLayout>
-    <ImageView android:id="@+id/image" android:layout_height="240dp"/>
-    <View android:id="@+id/overlay" android:layout_height="240dp"//>
+
+    <ImageView
+        android:id="@+id/image"
+        android:layout_height="240dp" />
+
+    <View
+        android:id="@+id/overlay"
+        android:layout_height="240dp" />
+
     <ObservableScrollView android:id="@+id/scroll">
+
         <LinearLayout android:orientation="vertical">
-            <View android:id="@+id/paddingtop" android:layout_height=“240dp”/>
-            <TextView android:id="@+id/main_content"/>
-        </LinearLayout>       
+
+            <View
+                android:id="@+id/paddingtop"
+                android:layout_height=“240dp”/>
+
+            <TextView android:id="@+id/main_content" />
+        </LinearLayout>
     </ObservableScrollView>
-    <LinearLayout android:id="@+id/titletext_container" android:orientation="vertical">
+
+    <LinearLayout
+        android:id="@+id/titletext_container"
+        android:orientation="vertical">
         android:paddingLeft="@dimen/margin_standard">
-        <TextView android:id="@+id/title"   android:minHeight="?attr/actionBarSize"/>
-        <View android:id="@+id/animating_area"   android:minHeight="184dp"/>
+
+        <TextView
+            android:id="@+id/title"
+            android:minHeight="?attr/actionBarSize" />
+
+        <View
+            android:id="@+id/animating_area"
+            android:minHeight="184dp" />
     </LinearLayout>
-    <FloatingActionButton android:id="@+id/fab"/>
+
+    <FloatingActionButton android:id="@+id/fab" />
 </FrameLayout>
 {% endhighlight %}
 
