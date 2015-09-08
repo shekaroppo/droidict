@@ -1,10 +1,10 @@
 # Site settings
-title:       Droidict
+title:       Shekar
 email:       shekarrex@gmail.com
 author:      Shekar
 description: "Android technical blog"
-url:         "http://127.0.0.1:5000/"
-# "http://shekar.xyz/"
+url:      #   "http://127.0.0.1:5000/"
+ "http://shekar.xyz/"
 date_format: "%b %-d, %Y"
 twitter_username: shekarrex
 

@@ -10,11 +10,12 @@
 }
 
 .site-header .site-title {
-  font-size: $h2;
+  font-size: $h6;
+
 }
 
 .site-nav {
-  margin-top: $space-2;
+//  margin-top: $space-2;
 }
 
 .site-header nav a {
@@ -51,7 +52,25 @@
   text-align: center;
 }
 
-.social-icons .left, .social-icons .right {
+.social-icons .left {
   text-align: center;
-  float: none;
+  float: left;
 }
+
+.social-icons .center {
+  text-align: center;
+  float: center;
+}
+
+ .social-icons .right {
+  text-align: center;
+  float: right;
+}
+
+.logo {
+   // margin: 1rem 0;
+   width: 80px;
+   border-radius: 50%;
+  vertical-align: middle;
+   margin-right: 0.5em;
+ }
