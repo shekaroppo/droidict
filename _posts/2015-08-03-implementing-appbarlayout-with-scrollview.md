@@ -4,11 +4,11 @@ date: 2015-09-03
 published: true
 ---
 
-As there were some bugs in Coordinator layout, I got the requirement to implement same behavior with scroll view. So here is how we can do it.
+As there were some bugs in AppbarLayout layout, I got the requirement to implement same behavior with scroll view. So here is how we can do it.
 
 ### Expected Output
 
-![](/images/1.gif){: .center-image }
+![](/images/10.gif){: .center-image }
 
 **Step 1: Not reinventing the wheel**
 
@@ -60,13 +60,13 @@ Let's see the basic structure of the this implementation.
 </FrameLayout>
 {% endhighlight %}
 
-  * FrameLayout is used for moving children separately.
-  * ImageView(@id/image) is the image that will be translated with
+  * *FrameLayout* is used for moving children separately.
+  * *ImageView(@id/image)* is the image that will be translated with
     parallax effect.
-  * View(@id/overlay) is an overlay view.You can see the image is fading in
+  * *View(@id/overlay)* is an overlay view.You can see the image is fading in
     and out. This view overlaps with the image and its opacity is changed by scroll position.
 
-![My helpful screenshot](/images/3.png){: .center-image }
+![Output](/images/3.png){: .center-image }
 
   * ObservableScrollView provide vertical scroll value which is used to
     scroll other views
@@ -75,7 +75,7 @@ Let's see the basic structure of the this implementation.
     start below header view.
   * TestView(@id/main_content) this represent main content below header.
 
-![My helpful screenshot](/images/4.png){: .center-image }
+![Output](/images/4.png){: .center-image }
 
   * LinearLayout(@id/titletext_container) holds title text and the
     animating area
@@ -83,45 +83,130 @@ Let's see the basic structure of the this implementation.
   * View(@id/animating_space) This view provides space for title text
     to animate. its height is (header height - action bar height).
 
-![My helpful screenshot](/images/5.png){: .center-image }
+![Output](/images/5.png){: .center-image }
 
 **Step 2: Identifying what need to be done**
 
   * The toolbar should stick at the top.
-  * Title text should stick at the top with scale animation.
+  * Title text should stick at the top.
   * The status bar should be transparent initially and fade in with the
     primary color.
-  * Image View should start under the status bar.
+  * Image View should start below the status bar.
 
 **Step 3: Toolbar should stick at top**
 
-As ObservableScrollView content should scroll below image view, move ObservableScrollView on top of image view and overlay.
+  * As Toolbar should be on top of scrolling content place it below ObservableScrollView. Also make toolbar transparent initially.
 
-{% highlight xml %}
-<FrameLayout>
-    <ObservableScrollView android:id="@+id/scroll">
-        <LinearLayout android:orientation="vertical">
-            <View />
-            <TextView />
-        </LinearLayout>
-    </ObservableScrollView>
+  {% highlight xml %}
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@android:color/transparent"
+        android:minHeight="?attr/actionBarSize"
+        app:popupTheme="@style/Theme.AppCompat.Light.DarkActionBar"
+        app:theme="@style/Toolbar"
+      />
+  {% endhighlight %}
 
-    <span style="color: #ff0000;">
-        <ImageView
-            android:id="@+id/image"
-            android:layout_height="240dp" />
-        <View
-            android:id="@+id/overlay"
-            android:layout_height="240dp"//>
-    </span>
+  ![Output](/images/100.gif){: .center-image }
 
-    <LinearLayout />
-       <TextView />
-        <View />
-    </LinearLayout>
-    <FloatingActionButton />
-</FrameLayout>
-{% endhighlight %}
+  * As we can see title text is overlapping with up icon, will correct this in next part.
+  * If user scrolled the content more then flexibleRange, change the Toolbar color to primary else keep it transparent.
+
+ {% highlight xml %}
+  @Override
+    public void onScrollChanged(int scrollY, boolean firstScroll, boolean dragging) {
+        float flexibleRange = mFlexibleSpaceImageHeight - mActionBarSize;
+        if(scrollY>=flexibleRange){
+            mToolbarView.setBackgroundColor(getResources().getColor(R.color.primary));
+        }
+        else{
+            mToolbarView.setBackgroundColor(Color.TRANSPARENT);
+        }
+    }
+ {% endhighlight %}
+
+  ![Output](/images/99.gif){: .center-image }
+
+  * As toolbar home icon width is 56dp, add left padding of 56dp to Title text.
+  {% highlight xml %}
+   <LinearLayout
+      android:paddingLeft="@dimen/toolbar_margin_start">
+      <TextView />
+      <View />
+   </LinearLayout>
+  {% endhighlight %}
+
+  ![Output](/images/97.gif){: .center-image }
+
+  **Step 5: Status bar color change**
+
+  * From our final output we can see that initially we need to set status bar color as transparent, so in
+    onCreate we can set below code.
+
+    {% highlight xml %}
+      getWindow().setStatusBarColor(Color.TRANSPARENT);
+    {% endhighlight %}
+
+
+    But this will result in following output
+
+  ![Output](/images/97.png){: .center-image }
+
+
+  Basically we need to move image below status bar, this can be done with below code
+
+  {% highlight xml %}
+    getWindow().getDecorView().setSystemUiVisibility(
+            View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
+  {% endhighlight %}
+
+  ![Output](/images/95.png){: .center-image }
+
+  You can see Toolbar overlapped with status bar, we need to set top padding to toolbar and it should be of status bar height.
+
+  {% highlight xml %}
+     mToolbarView.setPadding(0, getStatusBarHeight(), 0, 0);
+  {% endhighlight %}
+
+  ![Output](/images/toolbar_padding.png){: .center-image }
+
+  But this cause another issue, i.e Toolbar color change will be visible with a flicker as shown below
+
+ ![Output](/images/94.gif){: .center-image }
+
+ This is because we increased action height by adding extra padding but didn't updated mActionBarSize value so add following
+
+ {% highlight xml %}
+    mActionBarSize = getActionBarSize() + getStatusBarHeight();
+ {% endhighlight %}
+
+  ![Output](/images/92.gif){: .center-image }
+
+
+  **Step 4: Title text should stick at top**
+
+
+
+   * Translate Title text till it reaches status bar height, this will stick textview at top.
+
+  *Instead of*
+       {% highlight xml %}                                      
+         int titleTranslationY = maxTitleTranslationY - scrollY;
+       {% endhighlight %}
+
+  *Do this*
+
+       {% highlight xml %}                                      
+         int titleTranslationY = Math.max(maxTitleTranslationY - scrollY,getStatusBarHeight());  
+       {% endhighlight %}    
+
+
+       And hear is our final output
+
+   ![Output](/images/91.gif){: .center-image }
+
 
 
 

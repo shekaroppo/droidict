@@ -11,6 +11,7 @@ twitter_username: shekarrex
 
 # Build settings
 markdown:     kramdown
+highlighter:      pygments
 
 
 redcarpet:
