@@ -1,10 +1,10 @@
 ---
-title: Implementing AppbarLayout with ScrollView
+title: Implementing AppbarLayout scrolling behavior with ScrollView
 date: 2015-09-03
 published: true
 ---
 
-As there were some bugs in AppbarLayout layout, I got the requirement to implement same behavior with scroll view. So here is how we can do it.
+As there were some bugs in AppbarLayout scrolling behavior, I got the requirement to implement same behavior with scroll view. So here is how we can do it.
 
 ### Expected Output
 
@@ -13,7 +13,7 @@ As there were some bugs in AppbarLayout layout, I got the requirement to impleme
 **Step 1: Not reinventing the wheel**
 
 
-This library is very good as starting point for our final goal, and here you will find detail explanation about how to create this.
+[This](https://github.com/ksoichiro/Android-ObservableScrollView) library is very good as starting point for our final goal, and [here](https://github.com/ksoichiro/Android-ObservableScrollView/blob/master/docs/basic/flexible-space-with-image.md) you will find detail explanation about how to create this.
 
 ![](/images/2.gif){: .center-image }
 
@@ -73,7 +73,7 @@ Let's see the basic structure of the this implementation.
   * LinearLayout holds the actual content
   * View(@id/paddingtop) provide top padding of 240dp so that main content
     start below header view.
-  * TestView(@id/main_content) this represent main content below header.
+  * TextView(@id/main_content) this represent main content below header.
 
 ![Output](/images/4.png){: .center-image }
 
@@ -111,7 +111,18 @@ Let's see the basic structure of the this implementation.
 
   ![Output](/images/100.gif){: .center-image }
 
-  * As we can see title text is overlapping with up icon, will correct this in next part.
+  * As we can see title text is overlapping with up icon, this can be corrected by adding left padding of 56dp(toolbar home icon width) to Title text.
+
+  {% highlight xml %}
+  <LinearLayout
+        android:paddingLeft="@dimen/toolbar_margin_start">
+        <TextView />
+        <View />
+     </LinearLayout>
+  {% endhighlight %}
+
+ ![Output](/images/97.gif){: .center-image }
+
   * If user scrolled the content more then flexibleRange, change the Toolbar color to primary else keep it transparent.
 
  {% highlight xml %}
@@ -127,32 +138,20 @@ Let's see the basic structure of the this implementation.
     }
  {% endhighlight %}
 
-  ![Output](/images/99.gif){: .center-image }
+   ![Output](/images/99.gif){: .center-image }
 
-  * As toolbar home icon width is 56dp, add left padding of 56dp to Title text.
-  {% highlight xml %}
-   <LinearLayout
-      android:paddingLeft="@dimen/toolbar_margin_start">
-      <TextView />
-      <View />
-   </LinearLayout>
-  {% endhighlight %}
+  **Step 4: Status bar color change**
 
-  ![Output](/images/97.gif){: .center-image }
-
-  **Step 5: Status bar color change**
-
-  * From our final output we can see that initially we need to set status bar color as transparent, so in
-    onCreate we can set below code.
+  * From our final output we can see that initially we need to set status bar color as transparent, so in onCreate we can set below code.
 
     {% highlight xml %}
       getWindow().setStatusBarColor(Color.TRANSPARENT);
     {% endhighlight %}
 
 
-    But this will result in following output
+But this will result in following output
 
-  ![Output](/images/97.png){: .center-image }
+  ![Output](/images/97.png){: .center-image.normal }
 
 
   Basically we need to move image below status bar, this can be done with below code
@@ -162,7 +161,7 @@ Let's see the basic structure of the this implementation.
             View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
   {% endhighlight %}
 
-  ![Output](/images/95.png){: .center-image }
+  ![Output](/images/95.png){: .center-image.normal }
 
   You can see Toolbar overlapped with status bar, we need to set top padding to toolbar and it should be of status bar height.
 
@@ -170,9 +169,9 @@ Let's see the basic structure of the this implementation.
      mToolbarView.setPadding(0, getStatusBarHeight(), 0, 0);
   {% endhighlight %}
 
-  ![Output](/images/toolbar_padding.png){: .center-image }
+  ![Output](/images/toolbar_padding.png){: .center-image.normal }
 
-  But this cause another issue, i.e Toolbar color change will be visible with a flicker as shown below
+  But this cause another issue, i.e Toolbar color change will be visible with a flicker as shown below.
 
  ![Output](/images/94.gif){: .center-image }
 
@@ -185,9 +184,7 @@ Let's see the basic structure of the this implementation.
   ![Output](/images/92.gif){: .center-image }
 
 
-  **Step 4: Title text should stick at top**
-
-
+  **Step 5: Title text should stick at top**
 
    * Translate Title text till it reaches status bar height, this will stick textview at top.
 
@@ -203,36 +200,11 @@ Let's see the basic structure of the this implementation.
        {% endhighlight %}    
 
 
-       And hear is our final output
+  And hear is our final output
 
-   ![Output](/images/91.gif){: .center-image }
+   ![Output](/images/91.gif){: .center-image.normal }
 
-
-
-
+   You can find the code [here](https://github.com/shekarrex/AppbarLayoutBehaviorWithScrollView.git)
 
 
-
-
-
-
-
-
-
-
-<!-- {% highlight java linenos %}
-public class A{
-  System.print.ln("Test");
-}
-{% endhighlight %}
-
-Mug milk a mocha, fair trade est doppio as pumpkin spice saucer robusta iced. Milk cup frappuccino arabica ut fair trade grinder saucer. Est, fair trade mocha, crema wings, extra id spoon coffee frappuccino.
-… which is shown in the screenshot below:
-#Testing
-<ul>
-  {% for post in site.posts %}
-    <li>
-      <a href="{{ post.url }}">{{ post.title }}</a>
-    </li>
-  {% endfor %}
-</ul> -->
+   <br>
